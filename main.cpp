@@ -6,6 +6,7 @@
 using namespace std;
 
 // Definición de constantes y variables //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 const int MaxCandidatos = 5;
 const int MaxLongitud = 50;
 const int MaxVotantes = 11;
@@ -51,7 +52,9 @@ void RegistrarCandidatos(int &NumCandidatos) {
 }
 
 // Registrar votos ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void RegistrarVotos(int NumCandidatos) {
+	
     if (TotalVotosRegistrados >= MaxVotantes) {
         cout << "Se ha alcanzado el máximo de votos permitidos (" << MaxVotantes << ").\n";
         return;
@@ -66,22 +69,27 @@ void RegistrarVotos(int NumCandidatos) {
         return;
     }
 
+    string Entrada;
     int Opcion;
     cout << "\nSeleccione el número del candidato para votar:\n";
     for (int i = 0; i < NumCandidatos; i++) {
         cout << i + 1 << ". " << Candidatos[0][i] << " (" << Candidatos[1][i] << ")\n";
     }
     cout << "Opción: ";
-    cin >> Opcion;
+    cin >> Entrada;
 
-    if (Opcion > 0 && Opcion <= NumCandidatos) {
-        if (TotalVotosRegistrados < MaxVotantes) {
+
+    if (Entrada.size() == 1 && isdigit(Entrada[0])) {
+        Opcion = Entrada[0] - '0'; 
+        if (Opcion > 0 && Opcion <= NumCandidatos) {
             Votos[Opcion - 1]++;
             CedulasRegistradas[TotalVotosRegistrados++] = Cedula;
             cout << "Voto registrado para " << Candidatos[0][Opcion - 1] << ".\n";
+        } else {
+            cout << "Opción inválida.\n";
         }
     } else {
-        cout << "Opción inválida.\n";
+        cout << "Digite una opción válida.\n";
     }
 }
 
